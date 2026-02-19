@@ -192,6 +192,9 @@ dotnet_diagnostic.CA1873.severity = suggestion
 # CA2007: Do not directly await a Task
 dotnet_diagnostic.CA2007.severity = suggestion
 
+# S3358: Ternary operators should not be nested
+dotnet_diagnostic.S3358.severity = suggestion
+
 ### Generated code ###
 
 [**/Migrations/*.cs]

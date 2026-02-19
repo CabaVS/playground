@@ -24,6 +24,8 @@ builder.WebHost.ConfigureKestrel(
 // Configuration
 builder.Services.Configure<AzureDevOpsOptions>(
     builder.Configuration.GetSection(AzureDevOpsOptions.SectionName));
+builder.Services.Configure<TeamDefinitionOptions>(
+    builder.Configuration.GetSection(TeamDefinitionOptions.SectionName));
 
 // Logging
 builder.Host.UseSerilog((context, services, configuration) =>
@@ -92,9 +94,11 @@ app.MapGet("/api/work-items/{workItemId:int}/remaining-work",
 {
     var allWorkItemIds = await azureDevOpsService.GetFullHierarchyOf(workItemId, cancellationToken);
 
-    Dictionary<string, WorkItem[]> workItemsByType = await azureDevOpsService.GetWorkItemsGroupedByType(allWorkItemIds, cancellationToken);
+    WorkItem[] workItems = await azureDevOpsService.GetWorkItemsDetails(allWorkItemIds, cancellationToken);
 
-    return Results.Ok(workItemsByType);
+    Dictionary<string, Dictionary<string, double>> report = azureDevOpsService.CalculateRemainingByTeamAndByActivityType(workItems);
+
+    return Results.Ok(report);
 });
 
 await app.RunAsync();
