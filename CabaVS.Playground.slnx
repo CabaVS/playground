@@ -1,5 +1,16 @@
 <Solution>
+  <Folder Name="/Aspire/">
+    <Project Path="aspire/CabaVS.Playground.Aspire/CabaVS.Playground.Aspire.csproj" Id="4bcdea9c-1fa3-4e8d-add7-be928685563e" />
+  </Folder>
+  <Folder Name="/Projects/" />
+  <Folder Name="/Projects/Azure DevOps Helper/">
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.API/CabaVS.AzureDevOpsHelper.API.csproj" Id="1885cb33-4ff1-47fe-bad8-09f9d38c9c3a" />
+  </Folder>
   <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
   </Folder>
 </Solution>

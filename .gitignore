@@ -5,3 +5,7 @@ obj/
 # Visual Studio and Visual Studio Code
 .vs/
 .vscode/
+
+# User-specific files
+*.suo
+*.user

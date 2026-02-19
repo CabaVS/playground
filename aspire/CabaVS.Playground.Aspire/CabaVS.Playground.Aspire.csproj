@@ -1,0 +1,16 @@
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.1.1">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<UserSecretsId>cabavs-playground-aspire</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Aspire.Hosting.AppHost" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\proj-azuredevopshelper\CabaVS.AzureDevOpsHelper.API\CabaVS.AzureDevOpsHelper.API.csproj" />
+	</ItemGroup>
+
+</Project>
