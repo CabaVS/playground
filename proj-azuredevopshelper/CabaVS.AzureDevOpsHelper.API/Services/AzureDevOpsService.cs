@@ -8,9 +8,7 @@ namespace CabaVS.AzureDevOpsHelper.API.Services;
 
 internal interface IAzureDevOpsService
 {
-    Task<int[]> GetFullHierarchyOf(int workItemId, CancellationToken cancellationToken);
-    Task<WorkItem[]> GetWorkItemsDetails(int[] workItemIds, CancellationToken cancellationToken);
-    Dictionary<string, Dictionary<string, double>> CalculateRemainingByTeamAndByActivityType(WorkItem[] workItems);
+    Task<Dictionary<string, Dictionary<string, double>>> BuildRemainingWorkReportByTeamAndActivityType(int rootWorkItemId, CancellationToken cancellationToken);
 }
 
 internal sealed class AzureDevOpsService(
@@ -20,7 +18,16 @@ internal sealed class AzureDevOpsService(
 {
     private const int MaxBatchSize = 200;
 
-    public async Task<int[]> GetFullHierarchyOf(int workItemId, CancellationToken cancellationToken)
+    public async Task<Dictionary<string, Dictionary<string, double>>> BuildRemainingWorkReportByTeamAndActivityType(int rootWorkItemId, CancellationToken cancellationToken)
+    {
+        var allChildrenIds = await GetFullHierarchyOf(rootWorkItemId, cancellationToken);
+
+        WorkItem[] workItems = await GetWorkItemsDetails(allChildrenIds, cancellationToken);
+
+        return CalculateRemainingByTeamAndByActivityType(workItems);
+    }
+
+    private async Task<int[]> GetFullHierarchyOf(int workItemId, CancellationToken cancellationToken)
     {
         var wiql = new Wiql
         {
@@ -57,7 +64,7 @@ internal sealed class AzureDevOpsService(
         return allIds;
     }
 
-    public async Task<WorkItem[]> GetWorkItemsDetails(int[] workItemIds, CancellationToken cancellationToken)
+    private async Task<WorkItem[]> GetWorkItemsDetails(int[] workItemIds, CancellationToken cancellationToken)
     {
         var workItems = new List<WorkItem>(workItemIds.Length);
 
@@ -79,7 +86,7 @@ internal sealed class AzureDevOpsService(
         return [.. workItems];
     }
 
-    public Dictionary<string, Dictionary<string, double>> CalculateRemainingByTeamAndByActivityType(WorkItem[] workItems)
+    private Dictionary<string, Dictionary<string, double>> CalculateRemainingByTeamAndByActivityType(WorkItem[] workItems)
     {
         WorkItem[] workItemsToProcess = workItems
             .Where(wi => (wi.Fields["System.State"]?.ToString() ?? string.Empty) is not "Closed" and not "Removed")

@@ -92,11 +92,7 @@ app.MapGet("/api/work-items/{workItemId:int}/remaining-work",
         IAzureDevOpsService azureDevOpsService,
         CancellationToken cancellationToken) =>
 {
-    var allWorkItemIds = await azureDevOpsService.GetFullHierarchyOf(workItemId, cancellationToken);
-
-    WorkItem[] workItems = await azureDevOpsService.GetWorkItemsDetails(allWorkItemIds, cancellationToken);
-
-    Dictionary<string, Dictionary<string, double>> report = azureDevOpsService.CalculateRemainingByTeamAndByActivityType(workItems);
+    Dictionary<string, Dictionary<string, double>> report = await azureDevOpsService.BuildRemainingWorkReportByTeamAndActivityType(workItemId, cancellationToken);
 
     return Results.Ok(report);
 });
