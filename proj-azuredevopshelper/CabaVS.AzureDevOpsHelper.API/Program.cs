@@ -1,13 +1,10 @@
 using System.Globalization;
 using Azure.Monitor.OpenTelemetry.Exporter;
-using CabaVS.AzureDevOpsHelper.API.Configuration;
-using CabaVS.AzureDevOpsHelper.API.Services;
+using CabaVS.AzureDevOpsHelper.Application;
+using CabaVS.AzureDevOpsHelper.Infrastructure;
+using CabaVS.AzureDevOpsHelper.Persistence;
+using CabaVS.AzureDevOpsHelper.Presentation;
 using Microsoft.ApplicationInsights;
-using Microsoft.Extensions.Options;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
-using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
-using Microsoft.VisualStudio.Services.Common;
-using Microsoft.VisualStudio.Services.WebApi;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -20,12 +17,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Server
 builder.WebHost.ConfigureKestrel(
     options => options.AddServerHeader = false);
-
-// Configuration
-builder.Services.Configure<AzureDevOpsOptions>(
-    builder.Configuration.GetSection(AzureDevOpsOptions.SectionName));
-builder.Services.Configure<TeamDefinitionOptions>(
-    builder.Configuration.GetSection(TeamDefinitionOptions.SectionName));
 
 // Logging
 builder.Host.UseSerilog((context, services, configuration) =>
@@ -72,29 +63,14 @@ builder.Services.AddOpenTelemetry()
     });
 
 // Services
-builder.Services.AddSingleton(sp =>
-{
-    AzureDevOpsOptions options = sp.GetRequiredService<IOptions<AzureDevOpsOptions>>().Value;
-
-    var credentials = new VssBasicCredential(string.Empty, options.Pat);
-    var connection = new VssConnection(new Uri(options.OrgUrl), credentials);
-
-    return connection.GetClient<WorkItemTrackingHttpClient>();
-});
-
-builder.Services.AddSingleton<IAzureDevOpsService, AzureDevOpsService>();
+builder.Services
+    .AddApplication()
+    .AddPersistence(builder.Configuration)
+    .AddInfrastructure(builder.Configuration)
+    .AddPresentation(builder.Environment.IsDevelopment());
 
 WebApplication app = builder.Build();
 
-app.MapGet("/api/work-items/{workItemId:int}/remaining-work",
-    async (
-        int workItemId,
-        IAzureDevOpsService azureDevOpsService,
-        CancellationToken cancellationToken) =>
-{
-    Dictionary<string, Dictionary<string, double>> report = await azureDevOpsService.BuildRemainingWorkReportByTeamAndActivityType(workItemId, cancellationToken);
-
-    return Results.Ok(report);
-});
+app.UsePresentation(app.Environment.IsDevelopment());
 
 await app.RunAsync();

@@ -5,6 +5,14 @@
   <Folder Name="/Projects/" />
   <Folder Name="/Projects/Azure DevOps Helper/">
     <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.API/CabaVS.AzureDevOpsHelper.API.csproj" Id="1885cb33-4ff1-47fe-bad8-09f9d38c9c3a" />
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Application/CabaVS.AzureDevOpsHelper.Application.csproj" Id="75a0c601-35b9-4ccf-aea3-a07ef0e29083" />
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Domain/CabaVS.AzureDevOpsHelper.Domain.csproj" Id="ede028a8-7fb7-4d87-95af-c64c89188bcc" />
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Infrastructure/CabaVS.AzureDevOpsHelper.Infrastructure.csproj" Id="657e513f-6235-4c15-9e26-5f561917c42b" />
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Persistence/CabaVS.AzureDevOpsHelper.Persistence.csproj" Id="33b874e7-78c0-4d2e-a100-81d288774590" />
+    <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Presentation/CabaVS.AzureDevOpsHelper.Presentation.csproj" Id="10cec945-105c-4feb-af41-82145cdd84b4" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="shared/CabaVS.Shared.Domain/CabaVS.Shared.Domain.csproj" Id="e39a4640-e830-4bfb-a76b-5bd5dd4fff47" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />

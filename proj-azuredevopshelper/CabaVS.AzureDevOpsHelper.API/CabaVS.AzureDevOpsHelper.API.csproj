@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" />
-    <PackageReference Include="Microsoft.TeamFoundationServer.Client" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
@@ -18,7 +17,13 @@
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
-    <PackageReference Include="System.Data.SqlClient" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CabaVS.AzureDevOpsHelper.Application\CabaVS.AzureDevOpsHelper.Application.csproj" />
+    <ProjectReference Include="..\CabaVS.AzureDevOpsHelper.Infrastructure\CabaVS.AzureDevOpsHelper.Infrastructure.csproj" />
+    <ProjectReference Include="..\CabaVS.AzureDevOpsHelper.Persistence\CabaVS.AzureDevOpsHelper.Persistence.csproj" />
+    <ProjectReference Include="..\CabaVS.AzureDevOpsHelper.Presentation\CabaVS.AzureDevOpsHelper.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

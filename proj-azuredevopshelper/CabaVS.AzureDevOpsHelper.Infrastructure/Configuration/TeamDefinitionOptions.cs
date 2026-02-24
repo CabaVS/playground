@@ -1,4 +1,4 @@
-﻿namespace CabaVS.AzureDevOpsHelper.API.Configuration;
+﻿namespace CabaVS.AzureDevOpsHelper.Infrastructure.Configuration;
 
 internal sealed class TeamDefinitionOptions
 {

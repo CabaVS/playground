@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\CabaVS.Shared.Domain\CabaVS.Shared.Domain.csproj" />
+  </ItemGroup>
+</Project>

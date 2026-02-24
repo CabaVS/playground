@@ -6,7 +6,9 @@ IResourceBuilder<ParameterResource> postgresPassword = builder.AddParameter("pos
 IResourceBuilder<ParameterResource> orgUrl = builder.AddParameter("azure-devops-org-url");
 IResourceBuilder<ParameterResource> pat = builder.AddParameter("azure-devops-pat", secret: true);
 
-IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("posgres", postgresUsername, postgresPassword, 5003);
+IResourceBuilder<PostgresServerResource> postgres = builder.AddPostgres("posgres", postgresUsername, postgresPassword, 5003)
+    .WithDataVolume("postgres-data")
+    .WithLifetime(ContainerLifetime.Persistent);
 IResourceBuilder<PostgresDatabaseResource> postgresdb = postgres.AddDatabase("postgresdb");
 
 _ = builder.AddProject<Projects.CabaVS_AzureDevOpsHelper_API>("azure-devops-helper-api")

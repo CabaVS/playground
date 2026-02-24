@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="FastEndpoints.Swagger" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CabaVS.AzureDevOpsHelper.Application\CabaVS.AzureDevOpsHelper.Application.csproj" />
+  </ItemGroup>
+</Project>

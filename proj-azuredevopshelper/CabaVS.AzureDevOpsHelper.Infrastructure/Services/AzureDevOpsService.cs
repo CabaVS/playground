@@ -1,15 +1,12 @@
-﻿using CabaVS.AzureDevOpsHelper.API.Configuration;
+﻿using CabaVS.AzureDevOpsHelper.Application.Contracts.Infrastructure;
+using CabaVS.AzureDevOpsHelper.Infrastructure.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 
-namespace CabaVS.AzureDevOpsHelper.API.Services;
-
-internal interface IAzureDevOpsService
-{
-    Task<Dictionary<string, Dictionary<string, double>>> BuildRemainingWorkReportByTeamAndActivityType(int rootWorkItemId, CancellationToken cancellationToken);
-}
+namespace CabaVS.AzureDevOpsHelper.Infrastructure.Services;
 
 internal sealed class AzureDevOpsService(
     WorkItemTrackingHttpClient witClient,
@@ -125,7 +122,7 @@ internal sealed class AzureDevOpsService(
                 var tagsCollection = workItem.Fields.TryGetValue("System.Tags", out var tagsObj) && tagsObj is not null
                     ? tagsObj.ToString()?.Split(';').Select(t => t.Trim()).ToArray() ?? []
                     : [];
-                
+
                 activityType = tagsCollection.Contains("Functionality", StringComparer.InvariantCultureIgnoreCase)
                     ? "Functionality"
                     : tagsCollection.Contains("Requirements", StringComparer.InvariantCultureIgnoreCase)
