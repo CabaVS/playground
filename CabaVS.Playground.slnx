@@ -11,6 +11,9 @@
     <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Persistence/CabaVS.AzureDevOpsHelper.Persistence.csproj" Id="33b874e7-78c0-4d2e-a100-81d288774590" />
     <Project Path="proj-azuredevopshelper/CabaVS.AzureDevOpsHelper.Presentation/CabaVS.AzureDevOpsHelper.Presentation.csproj" Id="10cec945-105c-4feb-af41-82145cdd84b4" />
   </Folder>
+  <Folder Name="/Sandbox/">
+    <Project Path="sandbox/CabaVS.Sandbox.RuleEvaluationEngine/CabaVS.Sandbox.RuleEvaluationEngine.csproj" Id="ac319dd4-0e8a-4c1f-8277-780afdd001d0" />
+  </Folder>
   <Folder Name="/Shared/">
     <Project Path="shared/CabaVS.Shared.Domain/CabaVS.Shared.Domain.csproj" Id="e39a4640-e830-4bfb-a76b-5bd5dd4fff47" />
   </Folder>
